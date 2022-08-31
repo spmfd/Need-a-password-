@@ -1,30 +1,35 @@
-// Grabbing from the arrays
-
-var howmanySPchar = specialchar[Math.floor(Math.random()*specialchar.length)];
-var howmanynumbers = numbers[Math.floor(Math.random()*numbers.length)];
-var howmanyLCletters = lowerCase[Math.floor(Math.random()*lowerCase.length)];
-var howmanyUCletters = upperCase[Math.floor(Math.random()*upperCase.length)];
-
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
+function randomInt(min, max) {
+  return Math.floor(Math.random()*(max-min) + min)
+}
+
+function getRandomItem(list) {
+  return list[randomInt(0, list.length - 1)]
+}
 
 function generatePassword() {
 
-  var userInput = window.prompt("How long do you want your password to be?");
-
-  var passwordLength = parseInt()
+  var passwordLength = parseInt(
+    window.prompt("How long do you want your password to be?"), 10
+  )
 
   // Error Message Section
 
-   if (isNaN(passwordLength)) {
+   if (Number.isNaN(passwordLength)) {
     window.alert("Please insert a number to determine length of password")
-    return
+    return null;
   } 
 
-  if (passwordLength < 8 || passwordLength > 128) {
-    console.log("Password must be between 8 and 128 characters")
-    return
+  if (passwordLength < 8) {
+    window.alert("Password must be between 8 and 128 characters")
+    return null;
+  }
+
+  if (passwordLength > 128) {
+    window.alert("Password must be between 8 and 128 characters")
+    return null;
   }
 
   // User options
@@ -50,23 +55,30 @@ function generatePassword() {
   var userselections = []
 
   if (numbers_yes) {
-  userselections.push(numbers)
+    userselections = userselections.concat(numbers)
   }
 
   if (specialchar_yes) {
-    userselections.push(specialchar)
+    userselections = userselections.concat(specialchar)
     }  
 
   if (lowerCase_yes) {
-    userselections.push(lowerCase)
+    userselections = userselections.concat(lowerCase)
     }
 
   if (upperCase_yes) {
-     userselections.push(upperCase)
+    userselections = userselections.concat(upperCase)
     }
 
-  var generatedPassword = ""  
+    // Section where password is created based on length provided by user
 
+    var password = ""
+      
+    for (var i = 0; i < passwordLength; i++) {
+      password = password + userselections[Math.floor(Math.random() * userselections.length)];
+      console.log(password)
+    }
+    return password;
 
 }
 
